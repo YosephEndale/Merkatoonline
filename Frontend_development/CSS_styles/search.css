@@ -1,0 +1,320 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: whiteSmoke;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: darkslategrey;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    top: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+
+.navbar img {
+    width: 100px;
+    height: auto;
+}
+
+.navbar form {
+    display: flex;
+}
+
+.navbar select,
+.navbar input[type="text"] {
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    background-color: white; /* Add background color to input and select */
+    border-radius: 5px; /* Add border-radius */
+    font-size: 16px; /* Set font size */
+    height: 40px; /* Set height to match input and select */
+}
+
+
+ button[type=submit] {
+    border: none;
+    padding: 10px;
+    color: darkslategray; /* Set button text color */
+    min-width: 40px; /* Ensure the button has a minimum width */
+    height: 40px; /* Set height to match input and select */
+    border-radius: 5px;
+}
+
+/* CSS styles for the account section */
+.account {
+    display: flex;
+    align-items: center;
+}
+
+
+#loginButtons a {
+    margin-right: 3px; /* Adjust as needed */
+}
+
+#loginButtons span {
+    margin: 0 5px; /* Adjust as needed */
+}
+
+#logoutButtons {
+    display: none; /* Hide the logout buttons by default */
+}
+
+#logoutButtons a {
+    margin-right: 5px; /* Adjust as needed */
+}
+
+
+#loginButtons,
+#logoutButtons {
+    display: flex;
+    align-items: center;
+}
+
+#loginButtons a,
+#logoutButtons a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 5px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#loginButtons a:hover,
+#logoutButtons a:hover {
+    background-color: #333;
+    color: white;
+}
+
+#userName {
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.navbar .orders a,
+.navbar .cart a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.navbar .cart svg {
+    width: 24px;
+    height: auto;
+}
+
+/* Toggle button styles */
+.toggle-btn {
+    color: lightgreen;
+    font-size: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 100px;
+    margin-left: 15px; /* Adjusted to be initially positioned outside the sidebar */
+    z-index: 1001;
+    transition: left 0.3s ease; /* Adjusted transition property */
+}
+
+/* Sidebar styles */
+.sidenav {
+    background-color: darkslategrey;
+    color: white;
+    width: 250px;
+    height: 100%; /* Set sidebar height to fill the screen */
+    position: fixed;
+    top: 100px;
+    bottom: 10px;
+    left: -250px; /* Move the entire sidebar off-screen */
+    transition: left 0.3s ease; /* Smooth transition for sidebar animation */
+    z-index: 999;
+    overflow-y: auto;
+    padding-top: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+/* Hide the scrollbar in the sidebar */
+.sidenav::-webkit-scrollbar {
+    width: 0; /* Set the width to 0 to hide the scrollbar */
+    background: transparent; /* Set background to transparent */
+}
+
+
+
+/* Expanded state of the sidebar */
+.sidenav.expanded {
+    left: 0; /* Bring entire sidebar into view */
+}
+
+/* Sidebar item styles */
+.sidenav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidenav li {
+    padding: 10px 20px;
+    margin-right: 5px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+
+.sidenav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sublist {
+    padding-left: 20px;
+    display: block;
+}
+
+
+
+/* Sidebar Transition */
+.sidenav {
+    transition: transform 0.3s ease; /* Add transition for smooth sliding */
+}
+
+.sidenav.collapsed {
+    transform: translateX(-100%); /* Slide out when collapsed */
+}
+
+
+/* Main content styles */
+.main-content {
+    transition: margin-left 0.3s ease; /* Add transition for smooth adjustment */
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 35px; /* Initially, no margin */
+}
+
+/* Expanded state of the main content */
+.sidenav.expanded + .main-content {
+    margin-left: 250px; /* Adjusted margin when sidebar is expanded */
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.product-card {
+    width: 300px;
+    height: auto;
+    border: 1px solid white;
+    position: relative;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+.product-card img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.product-card h2 {
+    font-size: 18px;
+    margin: 10px;
+    color: darkslategray;
+    padding: 8px;
+}
+
+.product-card .price {
+    font-size: 16px;
+    color: darkslategray;
+    margin: 10px;
+}
+
+.product-card a {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+    background-color: darkslategray;
+    color: white;
+    text-decoration: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Footer styles */
+footer {
+    background-color: darkSlateGray;
+    padding: 20px;
+    color: white;
+    border-radius: 20px;
+}
+
+.footer-title {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer-items {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-items ul {
+    list-style: none;
+    margin-right: 30px;
+}
+
+.footer-items h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.footer-items a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* Regular CSS rules */
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+    /* Styles for devices with a maximum width of 768px */
+}
+
+@media screen and (max-width: 480px) {
+    /* Styles for devices with a maximum width of 480px */
+}

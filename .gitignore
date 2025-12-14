@@ -1,0 +1,52 @@
+# Ignore Composer dependencies
+vendor/
+
+# Ignore uploaded files
+Uploads/
+
+# Ignore environment files
+.env
+
+# Ignore metadata files
+Metadata/
+
+# Ignore database files
+*.sql
+
+# Ignore IDE specific files
+.idea/
+*.iml
+
+# Ignore node_modules (if applicable)
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore compiled files
+*.pyc
+*.pyo
+*.class
+*.o
+*.out
+*.exe
+*.dll
+
+# Ignore cache files
+.cache/
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Ignore other unnecessary files
+*.csv
+*.txt

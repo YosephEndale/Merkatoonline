@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% block title %}My Profile - Merkatoonline{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h1 class="mb-4">My Profile</h1>
+            
+            {% if user_profile %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Account Information</h5>
+                        <table class="table">
+                            <tr>
+                                <td><strong>Username:</strong></td>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Account Type:</strong></td>
+                                <td>{{ user_profile.get_role_display }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Member Since:</strong></td>
+                                <td>{{ user.date_joined|date:"F d, Y" }}</td>
+                            </tr>
+                        </table>
+                        
+                        <a href="#" class="btn btn-primary">Edit Profile</a>
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

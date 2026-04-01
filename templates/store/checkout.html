@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Checkout - Merkatoonline{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Checkout</h2>
+            
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    {% if cart_items %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                    <tr>
+                                        <td>{{ item.product.product_name }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>${{ item.product.price }}</td>
+                                        <td>${{ item.get_total }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <hr>
+                        <h5>Total: <strong>${{ total }}</strong></h5>
+                    {% else %}
+                        <p>Your cart is empty.</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Shipping Address</h5>
+                </div>
+                <div class="card-body">
+                    {% if addresses %}
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for address in addresses %}
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="address_id" 
+                                           value="{{ address.id }}" id="address_{{ address.id }}" 
+                                           {% if forloop.first %}checked{% endif %}>
+                                    <label class="form-check-label" for="address_{{ address.id }}">
+                                        {{ address.address_line1 }}, {{ address.city }}, {{ address.state }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </form>
+                    {% else %}
+                        <p>No address found. <a href="#">Add address</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Payment Method</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_method" 
+                               value="credit_card" id="payment_cc" checked>
+                        <label class="form-check-label" for="payment_cc">
+                            Credit Card
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="payment_method" 
+                               value="paypal" id="payment_paypal">
+                        <label class="form-check-label" for="payment_paypal">
+                            PayPal
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary btn-lg w-100">Place Order</button>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card sticky-top">
+                <div class="card-header">
+                    <h5>Order Total</h5>
+                </div>
+                <div class="card-body">
+                    <p>Subtotal: <strong>${{ total }}</strong></p>
+                    <p>Shipping: <span class="text-muted">FREE</span></p>
+                    <hr>
+                    <h5>Total: <strong>${{ total }}</strong></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

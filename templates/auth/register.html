@@ -1,0 +1,97 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Register - Merkatoonline{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h2>Create Account</h2>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Choose a username" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone_number" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="At least 8 characters" required>
+                            <small class="text-muted">Must be at least 8 characters</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm your password" required>
+                        </div>
+                        
+                        <!-- Seller Options -->
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title">Want to sell? (Optional)</h6>
+                                
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="is_seller" id="is_seller">
+                                        <label class="form-check-label" for="is_seller">
+                                            I want to be a seller
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div id="sellerFields" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label">Store Name</label>
+                                        <input type="text" name="seller_name" class="form-control" placeholder="Your store name">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Business Info</label>
+                                        <textarea name="business_info" class="form-control" rows="3" placeholder="Tell customers about your business"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Create Account</button>
+                        
+                        <p class="text-center mt-3">
+                            Already have an account? <a href="{% url 'login' %}">Login here</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('is_seller').addEventListener('change', function() {
+    document.getElementById('sellerFields').style.display = this.checked ? 'block' : 'none';
+});
+</script>
+{% endblock %}

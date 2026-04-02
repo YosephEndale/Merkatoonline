@@ -6,7 +6,7 @@
     <title>{% block title %}Merkatoonline - E-Commerce Platform{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Bootstrap & MDB CSS -->
+    <!-- Bootstrap & MDB CSS (for grid compatibility) -->
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
     
     <!-- Font Awesome Icons -->
@@ -15,18 +15,12 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     
-    <!-- Frontend CSS Styles -->
+    <!-- ========== ORIGINAL CSS FILES ========== -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/Home_page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
-    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
-    <link rel="stylesheet" href="{% static 'css/product_details.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" href="{% static 'css/StyleSheet2_registration.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Messages.css' %}">
-    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/Verify.css' %}">
+    
+    <!-- Enhanced Custom Styles -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     
     <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
     
@@ -44,8 +38,8 @@
             </div>
             
             <!-- Search Form -->
-            <form action="{% url 'products' %}" method="GET">
-                <div class="nav-search form-control rounded-0">
+            <form action="{% url 'products' %}" method="GET" class="nav-search-form">
+                <div class="nav-search">
                     <div class="search-container">
                         <select class="select-search" name="category">
                             <option value="">All Categories</option>
@@ -110,46 +104,44 @@
                 </a>
             </div>
             {% endif %}
+            
+            <!-- Toggle Button for Sidebar (Hidden on desktop) -->
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
     
-    <!-- Toggle Button for Sidebar -->
-    <div class="toggle-btn">☰</div>
-    
     <!-- Sidebar -->
     <aside class="sidenav">
-        <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
-            <ul class="navbar-nav flex-column">
-                <!-- Shop by Category -->
-                <li class="nav-item">
-                    <a class="nav-link text-white sidebar-link" href="#">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">category</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Shop by Category</span>
-                    </a>
-                </li>
-                
-                {% for category in categories %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'products' %}?category={{ category.id }}">
-                        <span class="nav-link-text ms-1">{{ category.category_name }}</span>
-                    </a>
-                </li>
-                {% endfor %}
-                
-                {% if user.is_staff %}
-                <li class="nav-item mt-3 border-top pt-2">
-                    <a class="nav-link text-white sidebar-link" href="/admin/">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">admin_panel_settings</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Admin Panel</span>
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+        <ul class="navbar-nav">
+            <!-- Shop by Category -->
+            <li class="nav-item">
+                <a class="nav-link sidebar-link" href="#">
+                    <i class="fas fa-layer-group"></i>
+                    <span class="nav-link-text">Shop by Category</span>
+                </a>
+            </li>
+            
+            {% for category in categories %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}?category={{ category.id }}">
+                    <span class="nav-link-text">{{ category.category_name }}</span>
+                </a>
+            </li>
+            {% endfor %}
+            
+            {% if user.is_staff %}
+            <li class="nav-item" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: var(--spacing-lg); padding-top: var(--spacing-md);">
+                <a class="nav-link sidebar-link" href="/admin/">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-link-text">Admin Panel</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
     </aside>
     
     <!-- Messages/Alerts -->
@@ -165,38 +157,119 @@
     {% endif %}
     
     <!-- Main Content -->
-    <main style="margin-top: 120px;">
+    <main>
         {% block content %}{% endblock %}
     </main>
     
     <!-- Footer -->
-    <footer class="bg-dark text-white mt-5 py-4">
+    <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>About Merkatoonline</h5>
-                    <p>Your trusted e-commerce platform for quality products.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                <!-- About Section -->
+                <div>
+                    <h5 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">About Us</h5>
+                    <p style="color: #ecf0f1; line-height: 1.8; margin-bottom: 10px; font-size: 0.95rem;">
+                        Your go-to e-commerce platform for quality products at great prices.
+                    </p>
+                    <p style="color: #bdc3c7; font-size: 0.9rem; margin-bottom: 0;">
+                        <strong style="color: #4CAF50;">Mission:</strong> Making shopping easy and affordable.
+                    </p>
                 </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'products' %}" class="text-white-50">Products</a></li>
-                        <li><a href="#" class="text-white-50">About Us</a></li>
-                        <li><a href="#" class="text-white-50">Contact</a></li>
+
+                <!-- Quick Links -->
+                <div>
+                    <h5 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">Quick Links</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;">
+                            <a href="{% url 'products' %}" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Shop Now</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> About Us</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Contact Support</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Shipping Info</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Return Policy</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Follow Us</h5>
-                    <div>
-                        <a href="#" class="text-white-50 me-2"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white-50 me-2"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white-50"><i class="fab fa-instagram"></i></a>
+
+                <!-- Support & Legal -->
+                <div>
+                    <h5 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">Support & Legal</h5>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Help Center</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Privacy Policy</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Terms & Conditions</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Security</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="#" style="color: #ecf0f1; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center;"><span style="color: #4CAF50; margin-right: 8px;">›</span> Cookie Settings</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Connect & Newsletter -->
+                <div>
+                    <h5 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">Connect With Us</h5>
+                    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                        <a href="#" title="Facebook" style="width: 40px; height: 40px; background: rgba(76, 175, 80, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4CAF50; transition: all 0.3s ease; text-decoration: none;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Twitter" style="width: 40px; height: 40px; background: rgba(76, 175, 80, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4CAF50; transition: all 0.3s ease; text-decoration: none;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram" style="width: 40px; height: 40px; background: rgba(76, 175, 80, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4CAF50; transition: all 0.3s ease; text-decoration: none;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn" style="width: 40px; height: 40px; background: rgba(76, 175, 80, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4CAF50; transition: all 0.3s ease; text-decoration: none;"><i class="fab fa-linkedin"></i></a>
                     </div>
+                    <p style="color: #bdc3c7; font-size: 0.9rem; margin-bottom: 10px;">
+                        <strong style="color: #4CAF50;">Newsletter</strong>
+                    </p>
+                    <form style="display: flex; gap: 6px; border: 1.5px solid #4CAF50; border-radius: 8px; padding: 4px; background: rgba(76, 175, 80, 0.05);">
+                        <input type="email" placeholder="Email" style="flex: 1; padding: 8px 10px; border: none; background: transparent; color: #ecf0f1; font-size: 0.9rem; outline: none;" required>
+                        <button type="submit" style="padding: 8px 14px; background: #4CAF50; color: white; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; font-size: 0.9rem;">Go</button>
+                    </form>
                 </div>
             </div>
-            <hr>
-            <div class="text-center text-white-50">
-                <p>&copy; 2024 Merkatoonline. All rights reserved.</p>
+
+            <!-- Divider -->
+            <div style="border-top: 1px solid rgba(76, 175, 80, 0.2); margin: 30px 0; padding: 30px 0;">
+                <div style="display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px;">
+                    <!-- Copyright -->
+                    <div style="color: #bdc3c7; font-size: 0.9rem;">
+                        <p style="margin: 0;">
+                            &copy; 2024 <strong style="color: #4CAF50;">Merkatoonline</strong>. All rights reserved.
+                        </p>
+                        <p style="margin: 5px 0 0 0; font-size: 0.85rem;">
+                            Made with <span style="color: #e74c3c;">❤</span> for global commerce
+                        </p>
+                    </div>
+
+                    <!-- Center Badge/Status -->
+                    <div style="text-align: center; color: #bdc3c7; font-size: 0.85rem;">
+                        <span style="display: inline-block; background: rgba(76, 175, 80, 0.2); padding: 8px 16px; border-radius: 20px;">
+                            <i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 6px;"></i>
+                            Secure & Trusted Platform
+                        </span>
+                    </div>
+
+                    <!-- Version/Status -->
+                    <div style="color: #bdc3c7; font-size: 0.85rem; text-align: right;">
+                        <p style="margin: 0;">
+                            <span style="color: #4CAF50;">✓</span> 24/7 Support
+                        </p>
+                        <p style="margin: 5px 0 0 0;">
+                            <span style="color: #4CAF50;">✓</span> Fast Shipping
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -218,9 +291,36 @@
     <script src="{% static 'js/cart.js' %}"></script>
     
     <script>
-        // Sidebar toggle
-        document.querySelector('.toggle-btn').addEventListener('click', function() {
-            document.querySelector('.sidenav').classList.toggle('active');
+        // Sidebar toggle functionality
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const sidenav = document.querySelector('.sidenav');
+        
+        if (navbarToggle) {
+            navbarToggle.addEventListener('click', function() {
+                sidenav.classList.toggle('active');
+                navbarToggle.classList.toggle('active');
+            });
+        }
+        
+        // Close sidebar when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                sidenav.classList.remove('active');
+                if (navbarToggle) {
+                    navbarToggle.classList.remove('active');
+                }
+            });
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!sidenav.contains(event.target) && !navbarToggle.contains(event.target) && sidenav.classList.contains('active')) {
+                sidenav.classList.remove('active');
+                if (navbarToggle) {
+                    navbarToggle.classList.remove('active');
+                }
+            }
         });
     </script>
     

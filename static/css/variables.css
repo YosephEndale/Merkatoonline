@@ -1,0 +1,92 @@
+/* ==========================================
+   MERKATOONLINE - CSS CUSTOM PROPERTIES
+   ========================================== */
+
+:root {
+    /* Colors - Brand */
+    --primary-color: #2ECC71;
+    --primary-dark: #27AE60;
+    --primary-light: #58D68D;
+    
+    --secondary-color: #3498DB;
+    --secondary-dark: #2980B9;
+    --secondary-light: #5DADE2;
+    
+    /* Status Colors */
+    --success-color: #2ECC71;
+    --danger-color: #E74C3C;
+    --warning-color: #F39C12;
+    --info-color: #3498DB;
+    
+    /* Neutral Colors */
+    --dark-color: #1A1A1A;
+    --gray-dark: #2C3E50;
+    --gray-medium: #7F8C8D;
+    --gray-light: #BDC3C7;
+    --border-color: #E8E8E8;
+    --light-bg: #F8F9FA;
+    --white: #ffffff;
+    
+    /* Navbar */
+    --navbar-bg: #2c3e50;
+    --navbar-text: #ffffff;
+    --navbar-border: var(--primary-color);
+    
+    /* Typography */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-mono: 'Courier New', monospace;
+    --font-size-base: 16px;
+    --font-size-sm: 14px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 32px;
+    --line-height: 1.6;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+    
+    /* Box Shadow */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.2);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms ease;
+    
+    /* Z-Index */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-color: #1a1a1a;
+        --gray-dark: #2d2d2d;
+        --gray-medium: #666;
+        --gray-light: #999;
+        --border-color: #3a3a3a;
+        --light-bg: #1e1e1e;
+    }
+}

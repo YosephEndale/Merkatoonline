@@ -25,12 +25,13 @@ body {
     flex-wrap: wrap;
     z-index: 1000;
     position: fixed;
-    width: calc(100% - 20px);
-    top: 10px;
-    left: 10px;
-    border-radius: 20px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 0;
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .navbar img {

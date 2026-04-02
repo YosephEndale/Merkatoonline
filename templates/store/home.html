@@ -4,69 +4,39 @@
 {% block title %}Home - Merkatoonline{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row align-items-center mb-5">
-        <div class="col-md-6">
-            <h1 class="display-4">Welcome to Merkatoonline</h1>
-            <p class="lead">Discover amazing products at great prices</p>
-            <a href="{% url 'products' %}" class="btn btn-primary btn-lg">Shop Now</a>
-        </div>
-        <div class="col-md-6">
-            <img src="{% static 'img/hero.jpg' %}" alt="Hero" class="img-fluid rounded">
-        </div>
-    </div>
-    
-    <!-- Featured Products -->
-    <section class="mb-5">
-        <h2 class="mb-4">Featured Products</h2>
-        <div class="row">
+<div class="container">
+    <!-- Featured Products Section -->
+    <section>
+        <h2>Featured Products</h2>
+        <div class="products-grid">
             {% for product in featured_products %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm hover-card">
-                        <img src="{{ product.images.first.image.url }}" class="card-img-top" alt="{{ product.product_name }}" height="250">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.product_name }}</h5>
-                            <p class="card-text text-muted">{{ product.description|truncatewords:15 }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="h5 mb-0">${{ product.price }}</span>
-                                <div class="rating">
-                                    <i class="fas fa-star text-warning"></i> {{ product.rating }}
-                                </div>
-                            </div>
+                <div class="product-card">
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}">
+                    <div style="padding: 15px;">
+                        <h3>{{ product.product_name }}</h3>
+                        <div class="product-price" style="margin: 10px 0;">
+                            ${{ product.price }}
                         </div>
-                        <div class="card-footer bg-white border-top">
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary btn-sm w-100">View Details</a>
-                        </div>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary" style="width: 100%; text-align: center;">View Details</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </section>
     
-    <!-- Categories -->
-    <section class="mb-5">
-        <h2 class="mb-4">Shop by Category</h2>
-        <div class="row">
+    <!-- Categories Section -->
+    <section>
+        <h2>Shop by Category</h2>
+        <div class="categories-grid">
             {% for category in categories %}
-                <div class="col-md-3 mb-3">
-                    <div class="card text-center p-4 bg-light hover-card">
-                        <i class="fas fa-layer-group display-4 text-primary mb-3"></i>
-                        <h5>{{ category.category_name }}</h5>
-                        <a href="{% url 'products' %}?category={{ category.id }}" class="btn btn-link mt-2">Browse</a>
+                <a href="{% url 'products' %}?category={{ category.id }}" class="category-card" style="text-decoration: none;">
+                    <div>
+                        <i class="fas fa-layer-group"></i>
+                        <h4>{{ category.category_name }}</h4>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </div>
     </section>
 </div>
-
-<style>
-    .hover-card {
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .hover-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
-    }
-</style>
 {% endblock %}

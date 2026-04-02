@@ -1,0 +1,416 @@
+/* ==========================================
+   MERKATOONLINE - NAVBAR STYLES
+   ========================================== */
+
+:root {
+    --navbar-height: 80px;
+    --navbar-mobile-height: 70px;
+}
+
+/* Main Navigation Container */
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: var(--z-sticky);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+/* Logo Section */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    color: var(--navbar-text);
+}
+
+.nav-logo img {
+    width: 60px;
+    height: auto;
+    transition: transform var(--transition-base);
+}
+
+.nav-logo a:hover img {
+    transform: scale(1.05);
+}
+
+/* Search Section */
+.nav-search {
+    flex: 1;
+    min-width: 250px;
+    max-width: 500px;
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    display: flex;
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+}
+
+.search-container {
+    display: flex;
+    width: 100%;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.select-search,
+.search-input {
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--dark-color);
+    background-color: transparent;
+}
+
+.select-search {
+    min-width: 120px;
+    border-right: 1px solid var(--border-color);
+}
+
+.select-search:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 100px;
+}
+
+.search-input::placeholder {
+    color: var(--gray-light);
+}
+
+.search-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+}
+
+.nav-search button[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color var(--transition-base);
+    min-width: 100px;
+}
+
+.nav-search button[type="submit"]:hover {
+    background-color: var(--primary-dark);
+}
+
+.nav-search button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* Language Dropdown */
+.language {
+    display: flex;
+    align-items: center;
+}
+
+.language select {
+    background-color: transparent;
+    color: var(--navbar-text);
+    border: 1px solid var(--navbar-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-base);
+}
+
+.language select:hover,
+.language select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.language select option {
+    background-color: var(--dark-color);
+    color: var(--navbar-text);
+}
+
+/* Account Section */
+.account {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+#loginButtons,
+#logoutButtons {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+#loginButtons span {
+    color: var(--navbar-text);
+    opacity: 0.7;
+}
+
+#loginButtons a,
+#logoutButtons a {
+    color: var(--navbar-text);
+    text-decoration: none;
+    border: 1px solid var(--navbar-text);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+#loginButtons a:hover,
+#logoutButtons a:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    text-decoration: none;
+}
+
+#userName {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Orders Section */
+.orders {
+    display: flex;
+    align-items: center;
+}
+
+.orders a {
+    color: var(--navbar-text);
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.orders a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+/* Cart Section */
+.cart {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.cart a {
+    color: var(--navbar-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+}
+
+.cart a:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+    text-decoration: none;
+}
+
+.cart svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cart svg:hover {
+    text-decoration: none;
+}
+
+/* Mobile Menu Toggle */
+.navbar-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--navbar-text);
+    color: var(--navbar-text);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.navbar-toggle span {
+    width: 20px;
+    height: 2px;
+    background-color: currentColor;
+    transition: all var(--transition-base);
+    display: block;
+}
+
+.navbar-toggle:hover span {
+    background-color: var(--primary-color);
+}
+
+/* ====================
+   RESPONSIVE DESIGN
+   ==================== */
+
+@media (max-width: 1200px) {
+    .nav-search {
+        min-width: 200px;
+        max-width: 350px;
+        order: 3;
+        flex-basis: 100%;
+        margin: var(--spacing-sm) 0;
+    }
+
+    .language {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: var(--spacing-md);
+    }
+
+    .nav-logo {
+        min-width: 100px;
+    }
+
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .nav-search {
+        order: 3;
+        flex-basis: 100%;
+        margin: var(--spacing-sm) 0;
+        max-width: none;
+    }
+
+    .account,
+    .orders,
+    .cart,
+    .language {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: var(--spacing-sm) 0;
+    }
+
+    #loginButtons a,
+    #logoutButtons a,
+    .orders a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        height: var(--navbar-mobile-height);
+        flex-wrap: nowrap;
+    }
+
+    .nav-logo img {
+        width: 50px;
+    }
+
+    .nav-search {
+        min-width: 150px;
+        max-width: 250px;
+        margin: 0;
+        order: unset;
+        flex: 1;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .select-search {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        min-width: 0;
+    }
+
+    .search-input {
+        order: -1;
+    }
+
+    .nav-search button[type="submit"] {
+        width: 100%;
+    }
+
+    .account,
+    .orders,
+    .language {
+        display: none;
+    }
+
+    .cart {
+        margin-right: var(--spacing-md);
+    }
+
+    #loginButtons a,
+    #logoutButtons a {
+        padding: 6px 8px;
+        font-size: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: var(--spacing-sm);
+    }
+
+    .nav-logo img {
+        width: 40px;
+    }
+
+    .navbar-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .navbar-toggle span {
+        width: 18px;
+    }
+
+    .nav-search {
+        display: none;
+    }
+}

@@ -4,12 +4,12 @@
 {% block title %}Products - Merkatoonline{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
+<div class="container">
+    <div class="sidebar-layout">
         <!-- Sidebar Filters -->
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
+        <aside class="sidebar">
+            <div class="card shadow-md">
+                <div class="card-header bg-primary">
                     <h5 class="mb-0">Filters</h5>
                 </div>
                 <div class="card-body">
@@ -26,9 +26,9 @@
                     <!-- Category Filter -->
                     <h6 class="mb-3">Category</h6>
                     <div class="list-group mb-4">
-                        <a href="?" class="list-group-item list-group-item-action">All Categories</a>
+                        <a href="?" class="list-group-item">All Categories</a>
                         {% for category in categories %}
-                            <a href="?category={{ category.id }}" class="list-group-item list-group-item-action">
+                            <a href="?category={{ category.id }}" class="list-group-item">
                                 {{ category.category_name }}
                             </a>
                         {% endfor %}
@@ -37,15 +37,15 @@
                     <!-- Price Filter -->
                     <h6 class="mb-3">Price Range</h6>
                     <div class="form-group">
-                        <input type="range" class="form-range" min="0" max="5000" id="priceRange">
+                        <input type="range" class="form-control" min="0" max="5000" id="priceRange">
                         <small class="text-muted" id="priceValue">$0 - $5000</small>
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
         
         <!-- Products Grid -->
-        <div class="col-md-9">
+        <main>
             <h2 class="mb-4">
                 {% if search_query %}
                     Search Results for "{{ search_query }}"
@@ -55,29 +55,22 @@
             </h2>
             
             {% if products %}
-                <div class="row">
+                <div class="products-grid">
                     {% for product in products %}
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100 shadow-sm hover-card">
-                                <div class="product-image-container" style="height: 250px; overflow: hidden;">
-                                    <img src="{{ product.images.first.image.url }}" class="card-img-top w-100 h-100" alt="{{ product.product_name }}" style="object-fit: cover;">
+                        <div class="product-card">
+                            <img src="{{ product.images.first.image.url }}" class="product-image" alt="{{ product.product_name }}">
+                            <div class="product-info">
+                                <h3 class="product-name">{{ product.product_name }}</h3>
+                                <p class="product-description">{{ product.description|truncatewords:15 }}</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>{{ product.rating }}</span>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ product.product_name }}</h5>
-                                    <p class="card-text text-muted" style="height: 60px; overflow: hidden;">
-                                        {{ product.description|truncatewords:15 }}
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="mb-0 text-primary">${{ product.price }}</h4>
-                                        <div class="text-warning">
-                                            <i class="fas fa-star"></i> {{ product.rating }}
-                                        </div>
-                                    </div>
-                                    <small class="text-muted">Stock: {{ product.stock_quantity }}</small>
+                                <div class="product-price">
+                                    <span class="product-price-current">${{ product.price }}</span>
                                 </div>
-                                <div class="card-footer bg-white border-top d-grid">
-                                    <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Details</a>
-                                </div>
+                                <div class="product-stock">Stock: {{ product.stock_quantity }}</div>
+                                <a href="{% url 'product_detail' product.id %}" class="btn btn-primary w-100">View Details</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -86,7 +79,7 @@
                 <!-- Pagination -->
                 {% if is_paginated %}
                     <nav class="mt-5">
-                        <ul class="pagination justify-content-center">
+                        <ul class="pagination">
                             {% if page_obj.has_previous %}
                                 <li class="page-item">
                                     <a class="page-link" href="?page=1">First</a>
@@ -120,23 +113,15 @@
                     </nav>
                 {% endif %}
             {% else %}
-                <div class="alert alert-info text-center py-5">
-                    <i class="fas fa-box-open display-4 mb-3"></i>
-                    <h4>No products found</h4>
-                    <p class="text-muted">Try adjusting your filters or search terms</p>
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h4 class="empty-state-title">No products found</h4>
+                    <p class="empty-state-text">Try adjusting your filters or search terms</p>
                 </div>
             {% endif %}
-        </div>
+        </main>
     </div>
 </div>
-
-<style>
-    .hover-card {
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .hover-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
-    }
-</style>
 {% endblock %}

@@ -1,0 +1,223 @@
+/* ==========================================
+   MERKATOONLINE - OVERRIDES & PAGE-SPECIFIC
+   ========================================== */
+
+/* Sidebar Navigation */
+.sidenav {
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    width: 250px;
+    height: calc(100vh - var(--navbar-height));
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+    padding: var(--spacing-lg) 0;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    z-index: var(--z-fixed) - 1;
+    display: none;
+}
+
+.sidenav.active {
+    transform: translateX(0);
+    display: block;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: block;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--navbar-text);
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: calc(var(--spacing-lg) + var(--spacing-sm));
+}
+
+.nav-link-text {
+    margin-left: var(--spacing-md);
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+/* List Unstyled Fix */
+.list-unstyled {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-unstyled li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.list-unstyled a {
+    opacity: 0.7;
+}
+
+.list-unstyled a:hover {
+    opacity: 1;
+}
+
+/* Messages Container Margin */
+.container.mt-3 {
+    margin-top: var(--spacing-lg);
+}
+
+/* Home Page Styles */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--white);
+    padding: var(--spacing-2xl) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.hero-section h1 {
+    color: var(--white);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.hero-section .lead {
+    font-size: var(--font-size-lg);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Product Image Container */
+.product-image-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Product Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+}
+
+/* Cart & Checkout Pages */
+.order-summary {
+    position: sticky;
+    top: calc(var(--navbar-height) + var(--spacing-md));
+    background-color: var(--light-bg);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ====================
+   RESPONSIVE DESIGN
+   ==================== */
+
+@media (max-width: 992px) {
+    .sidenav {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        left: -100%;
+        width: 80%;
+        top: var(--navbar-height);
+        transition: left var(--transition-base);
+    }
+
+    .sidenav.active {
+        left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .order-summary {
+        position: static;
+        margin-top: var(--spacing-lg);
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .hero-section h1 {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .sidenav {
+        width: 100%;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-link {
+        padding: var(--spacing-md) var(--spacing-md);
+    }
+
+    .nav-link:hover {
+        padding-left: var(--spacing-md);
+    }
+
+    .hero-section {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .hero-section h1 {
+        font-size: var(--font-size-xl);
+    }
+}

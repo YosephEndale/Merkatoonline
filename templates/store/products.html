@@ -58,7 +58,11 @@
                 <div class="products-grid">
                     {% for product in products %}
                         <div class="product-card">
-                            <img src="{{ product.images.first.image.url }}" class="product-image" alt="{{ product.product_name }}">
+                            {% if product.images.first %}
+                                <img src="{{ product.images.first.image.url }}" class="product-image" alt="{{ product.product_name }}" onerror="this.onerror=null;this.src='{% static 'img/no_image_available.png' %}';">
+                            {% else %}
+                                <img src="{% static 'img/no_image_available.png' %}" class="product-image" alt="No image available">
+                            {% endif %}
                             <div class="product-info">
                                 <h3 class="product-name">{{ product.product_name }}</h3>
                                 <p class="product-description">{{ product.description|truncatewords:15 }}</p>

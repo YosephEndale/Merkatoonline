@@ -9,8 +9,8 @@
     <!-- Bootstrap & MDB CSS (for grid compatibility) -->
     <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
     
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome Icons (fallback to CDN CSS to avoid kit 403) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-p8fZ1dYFPq/7PsJJ3xmqXe3+6aaiU6MWMASGpttpqQm43n/nx2zovYp58w70hX61ZXv7x2cx5Y2iVtBCVW54mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -293,11 +293,11 @@
     <script>
         // Sidebar toggle functionality
         const navbarToggle = document.querySelector('.navbar-toggle');
-        const sidenav = document.querySelector('.sidenav');
+        const navbarSideNav = document.querySelector('.sidenav');
         
-        if (navbarToggle) {
+        if (navbarToggle && navbarSideNav) {
             navbarToggle.addEventListener('click', function() {
-                sidenav.classList.toggle('active');
+                navbarSideNav.classList.toggle('active');
                 navbarToggle.classList.toggle('active');
             });
         }
@@ -306,7 +306,9 @@
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
-                sidenav.classList.remove('active');
+                if (navbarSideNav) {
+                    navbarSideNav.classList.remove('active');
+                }
                 if (navbarToggle) {
                     navbarToggle.classList.remove('active');
                 }
@@ -315,11 +317,9 @@
         
         // Close sidebar when clicking outside
         document.addEventListener('click', function(event) {
-            if (!sidenav.contains(event.target) && !navbarToggle.contains(event.target) && sidenav.classList.contains('active')) {
-                sidenav.classList.remove('active');
-                if (navbarToggle) {
-                    navbarToggle.classList.remove('active');
-                }
+            if (navbarSideNav && navbarToggle && !navbarSideNav.contains(event.target) && !navbarToggle.contains(event.target) && navbarSideNav.classList.contains('active')) {
+                navbarSideNav.classList.remove('active');
+                navbarToggle.classList.remove('active');
             }
         });
     </script>

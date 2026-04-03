@@ -4,19 +4,58 @@ from django.core.files.base import ContentFile
 from store.models import Category, Product, ProductImage
 from users.models import UserProfile
 import requests
+from io import BytesIO
+
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:
+    Image = None
+    ImageDraw = None
+    ImageFont = None
 
 
 class Command(BaseCommand):
     help = 'Populate database with sample products and categories'
 
+    def generate_placeholder_image(self, label, filename):
+        """Generate a simple placeholder image and return as ContentFile"""
+        if not Image or not ImageDraw or not ImageFont:
+            return None
+
+        img = Image.new('RGB', (500, 500), (230, 230, 230))
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.load_default()
+
+        text = label[:30]
+        try:
+            bbox = draw.textbbox((0, 0), text, font=font)
+            w, h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        except AttributeError:
+            w, h = font.getsize(text)
+
+        draw.text(((500 - w) / 2, (500 - h) / 2), text, font=font, fill=(20, 20, 20))
+
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG')
+        buffer.seek(0)
+
+        return ContentFile(buffer.read(), name=filename)
+
     def download_image(self, url, filename):
         """Download image from URL and return as ContentFile"""
         try:
-            response = requests.get(url, timeout=15)
+            response = requests.get(url, timeout=10)
             if response.status_code == 200:
                 return ContentFile(response.content, name=filename)
+            else:
+                self.stdout.write(self.style.WARNING(f'  ⚠ Could not download {filename} - status {response.status_code}'))
         except Exception as e:
-            self.stdout.write(self.style.WARNING(f'  ⚠ Could not download {filename}'))
+            self.stdout.write(self.style.WARNING(f'  ⚠ Could not download {filename}, using placeholder'))
+
+        placeholder = self.generate_placeholder_image(filename.replace('.jpg', '').replace('.png', ''), filename)
+        if placeholder:
+            return placeholder
+
         return None
 
     def handle(self, *args, **options):

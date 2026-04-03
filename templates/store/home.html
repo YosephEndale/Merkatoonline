@@ -11,7 +11,11 @@
         <div class="products-grid">
             {% for product in featured_products %}
                 <div class="product-card">
-                    <img src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}">
+                    {% if product.images.first %}
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}" onerror="this.onerror=null;this.src='{% static 'img/no_image_available.png' %}';">
+                    {% else %}
+                        <img src="{% static 'img/no_image_available.png' %}" alt="No image available">
+                    {% endif %}
                     <div style="padding: 15px;">
                         <h3>{{ product.product_name }}</h3>
                         <div class="product-price" style="margin: 10px 0;">
